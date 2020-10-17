@@ -1,0 +1,194 @@
+Database Encryption Using Application Level Symmetric Key
+We will be using Application level Encryption using Symmetric key to encrypt the database. In application-level encryption, the process of encrypting data is completed by the application that has been used to generate or modify the data that is to be encrypted. Essentially this means that data is encrypted before it is written to the database. This unique approach to encryption allows for the encryption process to be tailored to each user based on the information (such as entitlements or roles) that the application knows about its users. We have designed our own algorithm for the same. This will help us keep their customers information, user login protected from any threats from individuals with potentially malicious intentions, or any unforeseen hazards to the security of the data.
+This code is from the reservation.php file which basically includes the encryption of the data where Firstname (FName), Email, Nationality, Country, Phone are encrypted by making using application level encryption method and stored in the database. This is done basically to avoid any middle-level hacker to access the data and hack.
+
+<div class="col-md-12 col-sm-12">
+<div class="well">
+<h4>HUMAN VERIFICATION</h4>
+<p>Type Below this code <?php $Random_code=rand(); echo$Random_code; ?> </p><br/>
+<p>Enter the random code<br /></p>
+<input type="text" name="code1" title="random code" />
+<input type="hidden" name="code" value="<?php echo $Random_code; ?>" />
+<input type="submit" name="submit" class="btn btn-primary">
+<?php
+if(isset($_POST['submit']))
+{
+$code1=$_POST['code1'];
+$code=$_POST['code']; if($code1!="$code")
+{
+$msg="Invalide code";
+}
+else
+{
+$con=mysqli_connect("localhost","root","","hotel");
+$check="SELECT * FROM roombook WHERE email = '$_POST[email]'";
+$rs = mysqli_query($con,$check);
+$data = mysqli_fetch_array($rs, MYSQLI_NUM); if($_SERVER["REQUEST_METHOD"] == "POST") {
+$Fname = mysqli_real_escape_string($con,$_POST['fname']);
+$Lname= mysqli_real_escape_string($con,$_POST['lname']);
+$Email=mysqli_real_escape_string($con,$_POST['email']);
+$Nation=mysqli_real_escape_string($con,$_POST['nation']);
+$Country=mysqli_real_escape_string($con,$_POST['country']);
+$Phone=mysqli_real_escape_string($con,$_POST['phone']);
+$Troom=mysqli_real_escape_string($con,$_POST['troom']);
+$Btype=mysqli_real_escape_string($con,$_POST['bed']);
+$Nroom=mysqli_real_escape_string($con,$_POST['nroom']);
+$Meal=mysqli_real_escape_string($con,$_POST['meal']);
+$Checkin=mysqli_real_escape_string($con,$_POST['cin']);
+$Checkout=mysqli_real_escape_string($con,$_POST['cout']);
+
+
+function codeData($value) {
+$num=1;
+$l=strlen($value);
+$rev=""; for($i=0;$i<$l;$i++)
+ 
+{
+$a1=chr(ord(substr($value,$i,1))+$num);
+$a1=mysqli_real_escape_string($GLOBALS['con'],$a1);
+$rev=$a1.$rev;
+}
+
+return $rev;
+}
+
+function codeBg($value)
+{
+$l=strlen($value);
+$ch=""; for($i=0;$i<$l;$i++)
+{
+$a1=ord(substr($value,$i,1));
+$ch=$ch."$a1";
+}
+return $ch;
+}
+
+$Fname=codeData($Fname);
+$Email=codeData($Email);
+$Nation=codeData($Nation);
+$Country=codeData($Country);
+$Phone=codeBg($Phone);
+}
+$new ="Not Conform";
+$newUser="INSERT INTO `roombook`(`Title`, `FName`, `LName`, `Email`, `National`,
+`Country`, `Phone`, `TRoom`, `Bed`, `NRoom`, `Meal`, `cin`, `cout`,`stat`,`nodays`) VALUES ('$_POST[title]','$Fname','$Lname','$Email','$Nation','$Country','$Phone','$Troom','$Btype','$Nro
+om','$Meal','$Checkin','$Checkout','$new',datediff('$_POST[cin]','$_POST[cout]'))"; if (mysqli_query($con,$newUser))
+{
+echo "<script type='text/javascript'> alert('Your Booking application has been sent')</script>";
+
+}
+else
+{
+echo "<script type='text/javascript'> alert('Error adding user in database')</script>";
+}
+
+$msg="Your code is correct";
+}
+}
+}
+?>
+</form>
+</div>
+</div>
+</div>
+
+
+Home.php
+
+This code is from the home.php file which basically includes the decryption of the data from the database where Firstname (FName), Email, Nationality, Country, Phone were encrypted by making using application level encryption method and stored in the database. This is done basically to avoid any middle-level hacker to access the data and hack. Now this data is decrypted and shown in the admin for confirming the room for the guest/customer
+
+<div class="panel-body">
+<div class="table-responsive">
+<table class="table">
+<thead>
+<tr>
+<th>#</th>
+<th>Name</th>
+<th>Email</th>
+<th>Country</th>
+<th>Room</th>
+<th>Bedding</th>
+<th>Meal</th>
+<th>Check In</th>
+<th>Check Out</th>
+<th>Status</th>
+<th>More</th>
+</tr>
+</thead>
+<tbody>
+
+
+<?php
+$tsql = "select * from roombook";
+$tre = mysqli_query($con,$tsql); function codeData($rev)
+{
+$l=strlen($rev);
+$bk=""; for($i=0;$i<$l;$i++)
+{
+$a1=chr(ord(substr($rev,$i,1))-1);
+$bk=$a1.$bk;
+}
+return $bk;
+}
+while($trow=mysqli_fetch_array($tre) )
+{
+$co =$trow['stat']; if($co=="Not Conform")
+{
+ 
+$Fname=codeData($trow['FName']);
+$Email=codeData($trow['Email']);
+$Country=codeData($trow['Country']);
+
+echo"<tr>
+<th>".$trow['id']."</th>
+<th>".$Fname." ".$trow['LName']."</th>
+<th>".$Email."</th>
+
+<th>".$Country."</th>
+<th>".$trow['TRoom']."</th>
+<th>".$trow['Bed']."</th>
+<th>".$trow['Meal']."</th>
+<th>".$trow['cin']."</th>
+<th>".$trow['cout']."</th>
+<th>".$trow['stat']."</th>
+
+<th><a href='roombook.php?rid=".$trow['id']." ' class='btn btn-primary'>Action</a></th>
+
+</tr>";
+}
+}
+ 
+</tbody>
+
+
+
+
+
+</div>
+ 
+
+</table>
+
+</div>
+</div>
+</div>
+ 
+</div>
+</div>
+<?php
+
+$rsql = "SELECT * FROM `roombook`";
+$rre = mysqli_query($con,$rsql);
+$r =0; while($row=mysqli_fetch_array($rre) )
+{
+$br = $row['stat']; if($br=="Conform")
+{
+$r = $r + 1;
+}
+}
+
+?>
+We made use of Acunetix Web Vulnerability Scanner in order to check the vulnerability in our website. Acunetix is an automated web application security testing tool that audits your web applications by checking for vulnerabilities like SQL Injection, Cross site scripting and other exploitable vulnerabilities. In general, Acunetix scans any website or web application that is accessible via a web browser and uses the HTTP/HTTPS protocol.
+Acunetix offers a strong and unique solution for analyzing off-the-shelf and custom web applications including those utilizing JavaScript, AJAX and Web 2.0 web applications. Acunetix has an advanced crawler that can find almost any file. This is important since what is not found cannot be checked.
+
+
