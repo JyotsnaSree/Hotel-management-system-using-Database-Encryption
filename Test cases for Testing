@@ -1,0 +1,219 @@
+TEST CASES(Hotel Management System using Database Encryption):
+Test Case ID	T01
+Priority	High
+Description	To test the Admin login component 
+Module	Login
+Prepared By	Malla Jyotsna	Date Prepared	02 – Oct – 2020
+Reviewed / Updated	Malla Jyotsna	Date Reviewed	02 – Oct – 2020
+Tested By	Malla Jyotsna	Date Tested	02 – Oct – 2020
+Test Cases
+Sl. No.	Class	Input Condition	Expected
+Result	Actual Result
+1	C1 – User login with valid data	Username – Admin
+Password – 1234	User should login into the
+application	User logged into the application and directed to Homepage.
+2	C2 – User login with invalid data	Username – blabla Password – BlaI@123	User should not
+login into the application, and	Alert prompt Message: “Your login Name or Password is wrong”.
+			an error
+message should appear.	
+3	C3 – User login with empty data.	Username – Password –	User should not login into the application, and an error message should
+appear.	Alert prompt Message: “Your login Name or Password is invalid”.
+Test Case Result	Pass
+ 
+Post-conditions:
+Admin is validated with database and successfully login to account. The account session details are logged in database.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Test Case ID	T02
+Priority	High
+Description	To test the Successful Room Reservation 
+Module	Room Reservation
+Prepared By	Preetham Lekkala	Date Prepared	03 – Oct – 2020
+Reviewed / Updated	Preetham Lekkala	Date Reviewed	03 – Oct – 2020
+Tested By	Preetham Lekkala	Date Tested	03 – Oct – 2020
+Test Cases
+Sl. No.	Class	Input Condition	Expected
+Result	Actual Result
+1	C1 – Customer uploads all the details along with correct verification code and submits.	All details and correct verification code.	Customer should be informed about the successful booking.	Alert message “Your Booking Application has been sent”.
+2	C2 – User Uploads details with wrong verification code and press submit button.	All details and incorrect verification code.	User has not uploaded the correct code and an error message is
+displayed	Alert prompt “Invalid Human Verification code”
+3	C3 – User Uploads details with empty verification code and press submit button.	All details and empty verification code.	User has not uploaded the code and an error message is
+displayed	Alert prompt displayed “Enter the verification code”.
+Test Case Result	Pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Post-conditions:
+The customer application for room booking is sent to the Admin and stored in the database.
+
+Test Case ID	T03
+Priority	High
+Description	To test the Successful Room Conformation by Admin
+Module	Room Reservation
+Prepared By	Malla Jyotsna 	Date Prepared	04 – Oct – 2020
+Reviewed / Updated	Malla Jyotsna	Date Reviewed	04 – Oct – 2020
+Tested By	Malla Jyotsna	Date Tested	04 – Oct – 2020
+Test Cases
+Sl.
+No.	Class	Input Condition	Expected
+Result	Actual Result
+1	C1 – Admin clicks on conform and the room is booked.	Click on the conform by the Admin	Message should be displayed to the Admin stating	Alert displayed to admin “Room is booked”.
+			their room is booked.
+	
+2	C2 – Admin clicks on the delete option in status and the room booking application is deleted.	Admin clicks on delete against the room booking application	Message should be displayed to the Admin stating that the room booking application has been deleted.
+.	Alert prompted “Booking application Deleted”
+Test Case Result	Pass
+Post-conditions:
+The admin conforms the room and the room gets allocated to the applicant in the database.
+
+Test Case ID	T04
+Priority	High
+Description	To test the Add and delete Rooms working
+Module	Add/Delete Rooms
+Prepared By	Preetham Lekkala	Date Prepared	02 – Oct – 2020
+Reviewed / Updated	Preetham Lekkala	Date Reviewed	02 – Oct – 2020
+Tested By	Preetham Lekkala	Date Tested	02 – Oct – 2020
+Test Cases
+Sl.
+No.	Class	Input Condition	Expected
+Result	Actual Result
+1	C1 – Admin adds the room which already is vacant.	Type of room, Bedding type	Admin should be showed a message about the room already existing.	Alert Message: “Room already exists” displayed to the Admin.
+2	C2 – Admin adds the room which is not vacant.	Type of room , Bedding type	A message should be displayed to indicate the updation of the new room in the database.	Alert Message “ New Room Added to the database” shown to the Admin.
+3	C3 – Admin deletes a room against the room ID	Room ID	A message should be displayed that the room has been deleted.	Alert message “Room deleted successfully” displayed to the Admin.
+Test Case Result	Pass
+
+Post-conditions:
+The admin adds and deleted room and the status of the rooms available gets updated in the database and is reflected in the admins’ account.
+
+Test Case ID	T05
+Priority	High
+Description	To test the Encryption of the Sensitive Info of the Customers
+Module	Encryption 
+Prepared By	Malla Jyotsna	Date Prepared	02 – Oct – 2020
+Reviewed / Updated	Malla Jyotsna	Date Reviewed	02 – Oct – 2020
+Tested By	Malla Jyotsna	Date Tested	02 – Oct – 2020
+Test Cases
+Sl.
+No.	Class	Input Condition	Expected
+Result	Actual Result
+1	C1 – Admin sends a booking application.	Customer Information	The Customers; sensitive data should be stored in the database in an encrypted form.	The customer details gets stored in the roombook database in an encrypted manner.
+2	C2 – Admin conforms the booking application .	Clicks on the conform button.	The sensitive  data of the customer should get encrypted.	Once the booking is conformed the sensitive info again gets encrypted.
+Test Case Result	Pass
+
+
+Post-conditions:
+The sensitive info is encrypted before and after the conformation in the database to ensure security of information of customers
+
+
+Test Case ID	T05
+Priority	High
+Description	To test the Decryption of the Sensitive Info 
+Module	Decryption
+Prepared By	Preetham Lekkala	Date Prepared	02 – Oct – 2020
+Reviewed / Updated	Preetham Lekkala	Date Reviewed	02 – Oct – 2020
+Tested By	Preetham Lekkala	Date Tested	02 – Oct – 2020
+Test Cases
+Sl.
+No.	Class	Input Condition	Expected
+Result	Actual Result
+1	C1 – Admin logs into his account and goes to the status page.	Clicks on Status page.	The decrypted information should be available to the user.	The decrypted information of the booking applications to be conformed are displayed to the Admin.
+2	C2 – Admin conforms the booking application .	Clicks on the conform button.	The sensitive  data of the customer should get encrypted.	Once the booking is conformed the sensitive info again gets encrypted.
+Test Case Result	Pass
+
+
+
+
+Post-conditions:
+The admin can see the decrypted information about the customers’ only during the conformation time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
